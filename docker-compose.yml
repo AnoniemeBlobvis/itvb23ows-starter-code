@@ -20,15 +20,24 @@ services:
     ports:
       - "3306:3306"
 
-  jenkins:
-    build:
-      context: ./jenkins
-    container_name: hive-jenkins
-    ports:
-      - "8080:8080"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/local/bin/docker:/usr/local/bin/docker
+#  jenkins:
+#    build: ./jenkins/
+#    container_name: hive-jenkins
+#    ports:
+#      - "8080:8080"
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - /usr/bin/docker:/usr/bin/docker
 
-volumes:
-  jenkins_data:
+#  jenkins:
+#    build:
+#      context: ./jenkins
+#    container_name: hive-jenkins
+#    ports:
+#      - "8080:8080"
+#    volumes:
+#      - jenkins_home:/var/jenkins_home
+#      - /var/run/docker.sock:/var/run/docker.sock
+#
+#volumes:
+#  jenkins_home:

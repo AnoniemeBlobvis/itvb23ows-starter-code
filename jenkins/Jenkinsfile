@@ -1,25 +1,19 @@
 pipeline {
-    agent { label '!windows' }
+    agent any
 
     stages {
-        stage('Build') {
+        stage('Install dependencies') {
+            agent { docker { image 'composer:2.6' } }
             steps {
-                echo 'Building...'
-                sh 'docker-compose up --build -d'
+                sh 'composer install --ignore-platform-reqs'
+                stash name: 'vendor', includes: 'vendor/**'
             }
         }
-        stage('Test') {
+        stage('Unit Tests') {
+            agent { docker { image 'php:8.0-apache' } }
             steps {
-                echo 'Testing...'
-                // Add your test commands here. For example:
-                // sh 'docker-compose run --rm phpunit'
+                unstash name: 'vendor'
             }
-        }
-    }
-    post {
-        always {
-            echo 'Cleaning up...'
-            sh 'docker-compose down'
         }
     }
 }
