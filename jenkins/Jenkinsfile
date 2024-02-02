@@ -8,7 +8,7 @@ pipeline {
                     scannerHome = tool 'Hive-Sonar'
                     withSonarQubeEnv('Hive-Sonar') {
                         sh "${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=[key]"
+                            -Dsonar.projectKey=Hive"
                     }
                 }
             }
