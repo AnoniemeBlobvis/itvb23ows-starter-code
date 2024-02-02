@@ -8,7 +8,6 @@ pipeline {
                     scannerHome = tool 'SonarQube'
                     withSonarQubeEnv() {
                         sh "${scannerHome}/bin/sonar-scanner \
-                            -D sonar.projectKey=[key] \
                             -D sonar.host.url=http://localhost:9000"
                     }
                 }
