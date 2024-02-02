@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('SonarQube') {
             steps {
-                script { scannerHome = tool 'SonarQube' }
+                def scannerHome = tool 'SonarQube'
                 withSonarQubeEnv('SonarQube') {
                     sh "${scannerHome}/bin/sonar-scanner \
                         -D sonar.projectKey=[key] \
