@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                sh 'docker-compose up --build app db'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                // Add your test commands here. For example:
+                // sh 'docker-compose run --rm phpunit'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Cleaning up...'
+            sh 'docker-compose down'
+        }
+    }
+}
