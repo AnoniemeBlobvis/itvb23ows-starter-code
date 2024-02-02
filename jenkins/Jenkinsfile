@@ -6,8 +6,8 @@ pipeline {
             steps {
                 script { scannerHome = tool 'SonarQube' }
                 withSonarQubeEnv('SonarQube') {
-                    sh "${scannerHome}/bin/sonar-scanner /
-                        -D sonar.projectKey=[key] /
+                    sh "${scannerHome}/bin/sonar-scanner \
+                        -D sonar.projectKey=[key] \
                         -D sonar.host.url=http://localhost:9000"
                 }
             }
