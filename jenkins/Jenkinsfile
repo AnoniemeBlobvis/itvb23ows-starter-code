@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     scannerHome = tool 'Hive-Sonar'
-                    withSonarQubeEnv('Hive-Sonar') {
+                    withSonarQubeEnv(installationName: 'Hive-Sonar') {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
