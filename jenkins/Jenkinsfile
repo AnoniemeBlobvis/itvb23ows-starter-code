@@ -2,6 +2,16 @@ pipeline {
     agent any
 
     stages {
+        stage('Install dependencies') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Unit Tests') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
 //         stage('Install dependencies') {
 //             agent { docker { image 'composer:2.6' } }
 //             steps {
