@@ -6,4 +6,4 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-c
 RUN chmod +x /usr/local/bin/docker-compose
 RUN docker-compose --version
 RUN rm get-docker.sh
-#USER jenkins
+USER jenkins
