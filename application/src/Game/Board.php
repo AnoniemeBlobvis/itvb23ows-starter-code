@@ -39,24 +39,33 @@ class Board {
     public function isNeighbour($pos, $b): bool {
         $a = explode(',', $pos);
         $b = explode(',', $b);
-        if ($a[0] == $b[0] && abs($a[1] - $b[1]) == 1) return true;
-        if ($a[1] == $b[1] && abs($a[0] - $b[0]) == 1) return true;
-        if ($a[0] + $a[1] == $b[0] + $b[1]) return true;
+        if ($a[0] == $b[0] && abs($a[1] - $b[1]) == 1) {
+            return true;
+        }
+        if ($a[1] == $b[1] && abs($a[0] - $b[0]) == 1 || $a[0] + $a[1] == $b[0] + $b[1]) {
+            return true;
+        }
         return false;
     }
 
     public function hasNeighbour($pos): bool {
         foreach (array_keys($this->state) as $b) {
-            if ($this->isNeighbour($pos, $b)) return true;
+            if ($this->isNeighbour($pos, $b)) {
+                return true;
+            }
         }
         return false;
     }
 
     public function neighboursAreSameColor($player, $pos): bool {
         foreach ($this->state as $b => $st) {
-            if (!$st) continue;
+            if (!$st) {
+                continue;
+            }
             $c = $st[count($st) - 1][0];
-            if ($c != $player && $this->isNeighbour($pos, $b)) return false;
+            if ($c != $player && $this->isNeighbour($pos, $b)) {
+                return false;
+            }
         }
         return true;
     }
@@ -110,18 +119,30 @@ class Board {
     }
 
     public function slide($from, $to): bool {
-        if (!$this->hasNeighBour($to)) return false;
-        if (!$this->isNeighbour($from, $to)) return false;
+        if (!$this->hasNeighBour($to)) {
+            return false;
+        }
+        if (!$this->isNeighbour($from, $to)) {
+            return false;
+        }
         $b = explode(',', $to);
         $common = [];
         foreach (self::OFFSETS as $pq) {
             $p = $b[0] + $pq[0];
             $q = $b[1] + $pq[1];
-            if ($this->isNeighbour($from, $p.",".$q)) $common[] = $p.",".$q;
+            if ($this->isNeighbour($from, $p.",".$q)) {
+                $common[] = $p.",".$q;
+            }
         }
-        if (!isset($this->state[$common[0]]) || !isset($this->state[$common[1]]) || !isset($this->state[$from]) || !isset($this->state[$to])) return false;
-        if (!$this->state[$common[0]] && !$this->state[$common[1]] && !$this->state[$from] && !$this->state[$to]) return false;
-        return min($this->len($this->state[$common[0]]), $this->len($this->state[$common[1]])) <= max($this->len($this->state[$from]), $this->len($this->state[$to]));
+        if (!isset($this->state[$common[0]]) || !isset($this->state[$common[1]]) ||
+            !isset($this->state[$from]) || !isset($this->state[$to])) {
+            return false;
+        }
+        if (!$this->state[$common[0]] && !$this->state[$common[1]] && !$this->state[$from] && !$this->state[$to]) {
+            return false;
+        }
+        return min($this->len($this->state[$common[0]]), $this->len($this->state[$common[1]]))
+            <= max($this->len($this->state[$from]), $this->len($this->state[$to]));
     }
 
     public function len($tile) {
@@ -137,7 +158,9 @@ class Board {
             }
         }
         $to = array_unique($to);
-        if (!count($to)) $to[] = '0,0';
+        if (!count($to)) {
+            $to[] = '0,0';
+        }
 
         return $to;
     }

@@ -12,7 +12,7 @@ class Game{
     private int $id;
     private Database $db;
     private Board $board;
-    private Array $hands;
+    private array $hands;
     private int $currentPlayer;
     private ?int $lastMove;
 
@@ -37,7 +37,7 @@ class Game{
         return $this->board;
     }
 
-    public function getHands(): Array {
+    public function getHands(): array {
         return $this->hands;
     }
 
@@ -65,7 +65,9 @@ class Game{
     }
 
     public function pass(): void {
-        $this->lastMove = $this->db->insertMove($this->id, "pass", null, null, $this->previousMove, $this->board->getState());
+        $this->lastMove = $this->db->insertMove(
+            $this->id, "pass", null, null, $this->previousMove, $this->board->getState()
+        );
         $this->currentPlayer = 1 - $this->currentPlayer;
     }
 
@@ -86,7 +88,9 @@ class Game{
             $this->board->placePiece($piece, $this->currentPlayer, $to);
             $hand->removePiece($piece);
             $this->currentPlayer = 1 - $this->currentPlayer;
-            $this->lastMove = $this->db->insertMove($this->id, "play", $piece, $to, $this->lastMove, (string)$this->getState());
+            $this->lastMove = $this->db->insertMove(
+                $this->id, "play", $piece, $to, $this->lastMove, (string)$this->getState()
+            );
         }
     }
 
@@ -102,7 +106,9 @@ class Game{
         } else {
             $this->board->movePiece($from, $to);
             $this->currentPlayer = 1 - $this->currentPlayer;
-            $this->lastMove = $this->db->insertMove($this->id, "move", $from, $to, $this->lastMove, (string)$this->getState());
+            $this->lastMove = $this->db->insertMove(
+                $this->id, "move", $from, $to, $this->lastMove, (string)$this->getState()
+            );
         }
     }
 
@@ -130,5 +136,4 @@ class Game{
         $this->board->setState($b);
         $this->currentPlayer = $c;
     }
-
 }
