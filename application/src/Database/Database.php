@@ -36,7 +36,7 @@ class Database {
         int $gameId, string $type, ?string $from, ?string $to, ?int $previousId, string $state
     ): int {
         $stmt = $this->connection->prepare(
-        'insert into moves (game_id, type, move_from, move_to, previous_id, state) 
+        'insert into moves (game_id, type, move_from, move_to, previous_id, state)
                 values (?, ?, ?, ?, ?, ?)');
         $stmt->bind_param('isssis', $gameId, $type, $from, $to, $previousId, $state);
         $stmt->execute();

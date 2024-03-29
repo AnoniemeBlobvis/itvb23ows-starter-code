@@ -180,20 +180,6 @@ $to = $game->getPossiblePositions();
             }?></strong>
         <ol>
             <?php
-//                $db = include_once 'Database.php';
-//                $stmt = $db->prepare('SELECT * FROM moves WHERE game_id = '.$_SESSION['game_id']);
-//                $stmt->execute();
-//                $result = $stmt->get_result();
-//                while ($row = $result->fetch_array()) {
-//                    echo '<li>'.$row[2].' '.$row[3].' '.$row[4].'</li>';
-//                }
-//
-//                $db = new Database();
-//                $result = $db->getMoves($_SESSION['game_id']);
-//                while ($row = $result->fetch_array()) {
-//                    echo '<li>'.$row[2].' '.$row[3].' '.$row[4].'</li>';
-//                }
-
                 $moves = $game->getPreviousMoves();
                 foreach ($moves as $move) {
                     echo '<li>'.$move['type'].' '.$move['move_from'].' '.$move['move_to'].'</li>';
