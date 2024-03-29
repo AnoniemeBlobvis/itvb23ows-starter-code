@@ -15,13 +15,7 @@ if (!isset($_SESSION['Game'])) {
     $game_ID = $_SESSION['Game']->getId();
     $game = new Game(new Database(), $game_ID);
 }
-//if (!isset($_SESSION['board'])) {
-//    header('Location: restart.php');
-//    exit(0);
-//}
-//$board = $_SESSION['board'];
-//$player = $_SESSION['player'];
-//$hand = $_SESSION['hand'];
+
 $board = $game->getBoard()->getState();
 $hands = $game->getHands();
 $currentPlayer = $game->getCurrentPlayer();
