@@ -136,4 +136,36 @@ class Game{
         $this->board->setState($b);
         $this->currentPlayer = $c;
     }
+
+    public function getLegalPlayPositions(): array {
+        $legalPlayPositions = [];
+        $to = $this->getPossiblePositions();
+        if (!$this->board->hasPieces()) {
+            return $to;
+        }
+        echo '<pre>'; print_r($to); echo '</pre>';
+        foreach ($this->hands[$this->currentPlayer]->getHandArray() as $tile => $ct) {
+            foreach ($to as $pos) {
+                if (!$this->board->isPositionOccupied($pos) && $this->board->hasNeighbour($pos)) {
+                    $legalPlayPositions[$tile][] = $pos;
+                }
+            }
+        }
+        return $legalPlayPositions;
+    }
+
+    public function getLegalMovePositions(): array {
+        $legalMovePositions = [];
+        $to = $this->getPossiblePositions();
+        foreach (array_keys($this->board->getState()) as $pos) {
+            if ($this->board->isPositionOccupied($pos) && $this->board->getTileOwner($pos) == $this->currentPlayer) {
+                foreach ($to as $dest) {
+                    if ($this->board->isMoveValid($pos, $dest)) {
+                        $legalMovePositions[$pos][] = $dest;
+                    }
+                }
+            }
+        }
+        return $legalMovePositions;
+    }
 }

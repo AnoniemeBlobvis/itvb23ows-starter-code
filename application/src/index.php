@@ -20,6 +20,8 @@ $board = $game->getBoard()->getState();
 $hands = $game->getHands();
 $currentPlayer = $game->getCurrentPlayer();
 $to = $game->getPossiblePositions();
+$legalPlayPositions = $game->getLegalPlayPositions();
+$legalMovePositions = $game->getLegalMovePositions()
 ?>
 <!DOCTYPE html>
 <html lang="en" xml:lang="en">
@@ -144,7 +146,7 @@ $to = $game->getPossiblePositions();
             </select>
             <select name="to">
                 <?php
-                    foreach ($to as $pos) {
+                    foreach ($legalPlayPositions as $pos => $destinations) {
                         echo "<option value=\"$pos\">$pos</option>";
                     }
                 ?>

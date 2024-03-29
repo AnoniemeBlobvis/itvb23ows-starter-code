@@ -154,7 +154,7 @@ class Board {
         foreach (self::OFFSETS as $pq) {
             foreach (array_keys($board) as $pos) {
                 $pq2 = explode(',', $pos);
-                $to[] = ($pq[0] + $pq2[0]).','.($pq[1] + $pq2[1]);
+                $to[] = ($pq[0] + intval($pq2[0])).','.((isset($pq2[1])) ? ($pq[1] + intval($pq2[1])) : 0);
             }
         }
         $to = array_unique($to);
