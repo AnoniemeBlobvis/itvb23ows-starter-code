@@ -120,11 +120,11 @@ class Game{
         $this->lastMove = $previousMove['previous_id'];
     }
 
-    function getState(): string {
+    public function getState(): string {
         return serialize([$this->hands, $this->board->getState(), $this->currentPlayer]);
     }
 
-    function setState($state): void {
+    public function setState($state): void {
         list($a, $b, $c) = unserialize($state);
         $this->hands = $a;
         $this->board->setState($b);

@@ -109,7 +109,7 @@ class Board {
         return true; // Move is valid
     }
 
-    function slide($from, $to): bool {
+    public function slide($from, $to): bool {
         if (!$this->hasNeighBour($to)) return false;
         if (!$this->isNeighbour($from, $to)) return false;
         $b = explode(',', $to);
@@ -124,7 +124,7 @@ class Board {
         return min($this->len($this->state[$common[0]]), $this->len($this->state[$common[1]])) <= max($this->len($this->state[$from]), $this->len($this->state[$to]));
     }
 
-    function len($tile) {
+    public function len($tile) {
         return $tile ? count($tile) : 0;
     }
 
