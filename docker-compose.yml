@@ -3,8 +3,7 @@ version: '3'
 services:
   app:
     build:
-      context: ./application/src
-      dockerfile: Dockerfile
+      dockerfile: application/Dockerfile
     container_name: hive-app
     ports:
       - "80:80"
@@ -15,7 +14,20 @@ services:
     build: ./database
     container_name: hive-db
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      MYSQL_DATABASE: hive
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "8000:80"
+    environment:
+      PMA_HOST: hive-db
+      PMA_USER: root
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    depends_on:
+      - db
