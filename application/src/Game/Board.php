@@ -36,9 +36,28 @@ class Board {
         return count($this->state) > 0;
     }
 
+//    public function isNeighbour($pos, $b): bool {
+//        $a = explode(',', $pos);
+//        $b = explode(',', $b);
+//        if ($a[0] == $b[0] && abs($a[1] - $b[1]) == 1) {
+//            return true;
+//        }
+//        if ($a[1] == $b[1] && abs($a[0] - $b[0]) == 1 || $a[0] + $a[1] == $b[0] + $b[1]) {
+//            return true;
+//        }
+//        return false;
+//    }
+
     public function isNeighbour($pos, $b): bool {
         $a = explode(',', $pos);
         $b = explode(',', $b);
+
+        // Check if the second element exists before trying to access it
+        if (!isset($a[1]) || !isset($b[1])) {
+            // Handle the case where $a[1] or $b[1] doesn't exist
+            return false;
+        }
+
         if ($a[0] == $b[0] && abs($a[1] - $b[1]) == 1) {
             return true;
         }
@@ -79,6 +98,9 @@ class Board {
         if (!$this->hasNeighbour($to)) {
             return false;
         } else {
+            if ($tile === null || !isset($tile[1])) {
+                return false;
+            }
             $all = array_keys($this->state);
             $queue = [array_shift($all)];
             while ($queue) {
@@ -165,3 +187,5 @@ class Board {
         return $to;
     }
 }
+
+

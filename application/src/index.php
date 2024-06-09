@@ -132,7 +132,7 @@ $legalMovePositions = $game->getLegalMovePositions()
         <div class="turn">
             Turn: <?php if ($currentPlayer == 0) {
                 echo "White";
-            } else {
+            } else if ($currentPlayer == 1) {
                 echo "Black";
             } ?>
         </div>
@@ -146,7 +146,8 @@ $legalMovePositions = $game->getLegalMovePositions()
             </select>
             <select name="to">
                 <?php
-                    foreach ($legalPlayPositions as $pos => $destinations) {
+                    $firstPiece = array_key_first($legalPlayPositions);
+                    foreach ($legalPlayPositions[$firstPiece] as $pos) {
                         echo "<option value=\"$pos\">$pos</option>";
                     }
                 ?>
@@ -156,7 +157,8 @@ $legalMovePositions = $game->getLegalMovePositions()
         <form method="post" action="ActionHandler/move.php">
             <select name="from">
                 <?php
-                    foreach (array_keys($board) as $pos) {
+                    $currentPlayerPositions = $game->getCurrentPlayerPositions($currentPlayer);
+                    foreach ($currentPlayerPositions as $pos) {
                         echo "<option value=\"$pos\">$pos</option>";
                     }
                 ?>

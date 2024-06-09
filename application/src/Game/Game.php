@@ -137,13 +137,31 @@ class Game{
         $this->currentPlayer = $c;
     }
 
+//    public function getLegalPlayPositions(): array {
+//        $legalPlayPositions = [];
+//        $to = $this->getPossiblePositions();
+//        if (!$this->board->hasPieces()) {
+//            return $to;
+//        }
+//        foreach ($this->hands[$this->currentPlayer]->getHandArray() as $tile => $ct) {
+//            foreach ($to as $pos) {
+//                if (!$this->board->isPositionOccupied($pos) && $this->board->hasNeighbour($pos)) {
+//                    $legalPlayPositions[$tile][] = $pos;
+//                }
+//            }
+//        }
+//        return $legalPlayPositions;
+//    }
+
     public function getLegalPlayPositions(): array {
         $legalPlayPositions = [];
         $to = $this->getPossiblePositions();
         if (!$this->board->hasPieces()) {
-            return $to;
+            foreach ($this->hands[$this->currentPlayer]->getHandArray() as $tile => $ct) {
+                $legalPlayPositions[$tile] = $to;
+            }
+            return $legalPlayPositions;
         }
-        echo '<pre>'; print_r($to); echo '</pre>';
         foreach ($this->hands[$this->currentPlayer]->getHandArray() as $tile => $ct) {
             foreach ($to as $pos) {
                 if (!$this->board->isPositionOccupied($pos) && $this->board->hasNeighbour($pos)) {
@@ -167,5 +185,15 @@ class Game{
             }
         }
         return $legalMovePositions;
+    }
+
+    public function getCurrentPlayerPositions(int $player): array {
+        $currentPlayerPositions = [];
+        foreach (array_keys($this->board->getState()) as $pos) {
+            if ($this->board->getTileOwner($pos) == $player) {
+                $currentPlayerPositions[] = $pos;
+            }
+        }
+        return $currentPlayerPositions;
     }
 }
