@@ -3,7 +3,7 @@ FROM composer:2.7.2 AS composer
 WORKDIR /var/www/html
 
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-mysqli
 RUN composer dump-autoload -o
 
 FROM php:8.0-apache

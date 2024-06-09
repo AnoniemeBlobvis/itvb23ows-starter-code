@@ -65,10 +65,11 @@ class Game{
     }
 
     public function pass(): void {
-        $this->lastMove = $this->db->insertMove(
-            $this->id, "pass", null, null, $this->previousMove, $this->board->getState()
-        );
         $this->currentPlayer = 1 - $this->currentPlayer;
+
+        $this->lastMove = $this->db->insertMove(
+            $this->id, "pass", null, null, $this->lastMove, $this->getState()
+        );
     }
 
     public function play($piece, $to): void {

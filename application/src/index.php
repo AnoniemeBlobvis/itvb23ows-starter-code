@@ -172,7 +172,7 @@ $legalMovePositions = $game->getLegalMovePositions()
             </select>
             <input type="submit" value="Move">
         </form>
-        <form method="post" action="pass.php">
+        <form method="post" action="ActionHandler/pass.php">
             <input type="submit" value="Pass">
         </form>
         <form method="post" action="ActionHandler/restart.php">
