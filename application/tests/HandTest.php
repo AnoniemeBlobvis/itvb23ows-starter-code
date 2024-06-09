@@ -5,6 +5,8 @@ use App\Game\Hand;
 
 class HandTest extends TestCase
 {
+    // Tests for (bug) Issue #1
+
     public function testGetHandArrayReturnsDefaultState()
     {
         $hand = new Hand();

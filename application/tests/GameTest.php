@@ -12,6 +12,7 @@ class GameTest extends TestCase
     private $boardMock;
     private $handMock;
 
+    // Tests for (bug) Issue #1
     protected function setUp(): void
     {
         $this->dbMock = $this->createMock(Database::class);
@@ -129,5 +130,14 @@ class GameTest extends TestCase
         $this->assertEquals(['A3', 'C1'], $legalPlayPositions['piece1']);
         $this->assertArrayHasKey('piece2', $legalPlayPositions);
         $this->assertEquals(['A3', 'C1'], $legalPlayPositions['piece2']);
+    }
+
+    // Tests for (feature) Issue #9
+    public function testPass()
+    {
+        $game = new Game($this->dbMock, 1, $this->boardMock, [0 => $this->handMock, 1 => $this->handMock]);
+        $initialPlayer = $game->getCurrentPlayer();
+        $game->pass();
+        $this->assertNotEquals($initialPlayer, $game->getCurrentPlayer());
     }
 }

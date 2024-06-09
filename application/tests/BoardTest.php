@@ -5,6 +5,7 @@ use App\Game\Board;
 
 class BoardTest extends TestCase
 {
+    // Tests for (bug) Issue #1
     public function testIsMoveValid()
     {
         $initialState = [
